@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhy.mapper.WatchMapper">
+ 	
+ 	<select id="wlist" resultType="com.lhy.entity.Watch">
+ 		select * from t_watch 
+ 		<if test="lname!='' and lname!=null">
+ 			where sname like concat('%',#{lname},'%')
+ 		</if>
+ 	</select>
+ 	
+ 	<insert id="add">
+ 		insert into t_watch(sname,gou,jiao13,jiao14,jiao15)
+ 		 values(#{sname},#{gou},#{jiao13},#{jiao14},#{jiao15})
+ 	</insert>
+ 	
+ 	<delete id="del">
+ 		delete from t_watch where sid=#{sid}
+ 	</delete>
+ 	
+ 	<select id="getById" resultType="com.lhy.entity.Watch">
+ 		select * from t_watch where sid=#{param1}
+ 	</select>
+ 	<update id="update">
+ 		update t_watch set sname=#{sname},gou=#{gou},jiao13=#{jiao13},jiao14=#{jiao14},jiao15=#{jiao15} where sid=#{sid}
+ 	</update>
+ 	
+ 	<!-- 批量删除 -->
+	<delete id="deleteAll">
+		delete from t_watch where sid in (${ids})
+	</delete>
+</mapper>
